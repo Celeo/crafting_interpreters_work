@@ -1,8 +1,101 @@
 import sys
+from dataclasses import dataclass
+from enum import Enum, auto
+from typing import Any
+
+
+class TokenType(Enum):
+    """All possible token types."""
+
+    # Single-character tokens.
+    LEFT_PAREN = auto()
+    RIGHT_PAREN = auto()
+    LEFT_BRACE = auto()
+    RIGHT_BRACE = auto()
+    COMMA = auto()
+    DOT = auto()
+    MINUS = auto()
+    PLUS = auto()
+    SEMICOLON = auto()
+    SLASH = auto()
+    STAR = auto()
+
+    # One or two character tokens
+    BANG = auto()
+    BANG_EQUAL = auto()
+    EQUAL = auto()
+    EQUAL_EQUAL = auto()
+    GREATER = auto()
+    GREATER_EQUAL = auto()
+    LESS = auto()
+    LESS_EQUAL = auto()
+
+    # Literals
+    IDENTIFIER = auto()
+    STRING = auto()
+    NUMBER = auto()
+
+    # Keywords
+    AND = auto()
+    CLASS = auto()
+    ELSE = auto()
+    FALSE = auto()
+    FUN = auto()
+    FOR = auto()
+    IF = auto()
+    NIL = auto()
+    OR = auto()
+    PRINT = auto()
+    RETURN = auto()
+    SUPER = auto()
+    THIS = auto()
+    TRUE = auto()
+    VAR = auto()
+    WHILE = auto()
+
+    EOF = auto()
+
+
+KEYWORDS: dict[str, TokenType] = {
+    "and": TokenType.AND,
+    "class": TokenType.CLASS,
+    "else": TokenType.ELSE,
+    "false": TokenType.FALSE,
+    "for": TokenType.FOR,
+    "fun": TokenType.FUN,
+    "if": TokenType.IF,
+    "nil": TokenType.NIL,
+    "or": TokenType.OR,
+    "print": TokenType.PRINT,
+    "return": TokenType.RETURN,
+    "super": TokenType.SUPER,
+    "this": TokenType.THIS,
+    "true": TokenType.TRUE,
+    "var": TokenType.VAR,
+    "while": TokenType.WHILE,
+}
+"""Reserved Lox language keywords."""
+
+
+@dataclass
+class Token:
+    """A single token."""
+
+    token_type: TokenType
+    lexeme: str
+    literal: Any
+    line: int
+
+    def to_string(self) -> str:
+        return f"{self.token_type} {self.lexeme} {self.literal}"
 
 
 def error(line: int, message: str) -> None:
-    """Report an error."""
+    """Report an error.
+
+    Importantly this only *logs* the error; no sort of record
+    is kept of there being an error; that's the responsibility
+    of the calling code."""
     print(f"[{line}] Error: {message}", file=sys.stderr)
 
 
@@ -20,7 +113,7 @@ def _is_digit(c: str) -> bool:
 
     Defined here rather than using ``str.isdigit()`` due to the build-in
     function being too permissive for what we need."""
-    return c <= "0" and c <= "9"
+    return c >= "0" and c <= "9"
 
 
 def _is_alpha_numeric(c: str) -> bool:
