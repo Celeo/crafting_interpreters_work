@@ -2,25 +2,25 @@ import sys
 
 
 def main() -> None:
-    """CLI entrypoint"""
+    """CLI entrypoint."""
     if len(sys.argv) > 2:
         print("Usage: jlox [script]")
         sys.exit(1)
     elif len(sys.argv) == 2:
-        run_file(sys.argv[0])
+        run_file(sys.argv[1])
     else:
         run_prompt()
 
 
 def run_file(path: str) -> None:
-    """Load a file from the disk and run it's content"""
+    """Load a file from the disk and run it's content."""
     with open(path) as f:
         content = f.read()
     run(content)
 
 
 def run_prompt() -> None:
-    """Run a REPL in the terminal"""
+    """Run a REPL in the terminal."""
     while True:
         line = input("> ")
         if not line:
@@ -29,7 +29,7 @@ def run_prompt() -> None:
 
 
 def run(content: str) -> None:
-    """Execute the code"""
+    """Execute the given code."""
     pass
 
 
