@@ -100,8 +100,9 @@ class Scanner:
                     self.had_error = True
 
     def _advance(self) -> str:
+        c = self.source[self._current]
         self._current += 1
-        return self.source[self._current]
+        return c
 
     def _add_token(self, token_type: TokenType, literal: Any | None = None) -> None:
         text = self.source[self._start : self._current]

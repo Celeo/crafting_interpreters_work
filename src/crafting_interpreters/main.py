@@ -1,5 +1,7 @@
 import sys
 
+from . import Scanner
+
 
 def main() -> None:
     """CLI entrypoint."""
@@ -30,7 +32,10 @@ def run_prompt() -> None:
 
 def run(content: str) -> None:
     """Execute the given code."""
-    pass
+    scanner = Scanner(content)
+    scanner.scan_tokens()
+    print(scanner.tokens)
+    # TODO ...
 
 
 if __name__ == "__main__":
