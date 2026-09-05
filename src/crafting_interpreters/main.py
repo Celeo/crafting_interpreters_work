@@ -1,6 +1,6 @@
 import sys
 
-from . import Scanner
+from .scanner import Scanner
 
 
 def main() -> None:
