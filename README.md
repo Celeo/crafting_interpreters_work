@@ -1,1 +1,1 @@
-This repo is my following of [Crafting Interpreters](https://craftinginterpreters.com/).
+This repo is my following of [Crafting Interpreters](https://craftinginterpreters.com/) in Python.
