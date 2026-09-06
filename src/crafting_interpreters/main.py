@@ -1,9 +1,9 @@
 import sys
 
-from .ast_printer import AstPrinter
-from .expression import Binary, Grouping, Literal, Unary
-from .scanner import Token
-from .shared import TokenType
+from crafting_interpreters.ast_printer import AstPrinter
+from crafting_interpreters.parser import Parser
+
+from .scanner import Scanner
 
 
 def main() -> None:
@@ -21,7 +21,8 @@ def run_file(path: str) -> None:
     """Load a file from the disk and run it's content."""
     with open(path) as f:
         content = f.read()
-    run(content)
+    if run(content):
+        sys.exit(65)
 
 
 def run_prompt() -> None:
@@ -33,20 +34,21 @@ def run_prompt() -> None:
         run(line)
 
 
-def run(content: str) -> None:
+def run(content: str) -> bool:
     """Execute the given code."""
-    # scanner = Scanner(content)
-    # tokens = scanner.tokens
-    # ast = AstPrinter()
-    # print(ast.print_ast(tokens))
+    scanner = Scanner(content)
+    scanner.scan_tokens()
+    if scanner.had_error:
+        return True
 
-    expression = Binary(
-        Unary(Token(TokenType.MINUS, "-", None, 1), Literal(123)),
-        Token(TokenType.STAR, "*", None, 1),
-        Grouping(Literal(45.67)),
-    )
-    ast = AstPrinter()
-    print(ast.print_ast(expression))
+    parser = Parser(scanner.tokens)
+    expression = parser.parse()
+    if parser.had_error:
+        return True
+
+    if expression:
+        print(AstPrinter().format_ast(expression))
+    return False
 
 
 if __name__ == "__main__":

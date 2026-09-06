@@ -4,7 +4,7 @@ from .expression import Binary, Expr, Grouping, Literal, Unary, Visitor
 
 
 class AstPrinter(Visitor[str]):
-    def print_ast(self, expr: Expr) -> str:
+    def format_ast(self, expr: Expr) -> str:
         """Print the given Expression tree in a LISP-like format."""
         return expr.accept(self)
 

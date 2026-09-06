@@ -90,13 +90,29 @@ class Token:
         return f"{self.token_type} {self.lexeme} {self.literal}"
 
 
-def error(line: int, message: str) -> None:
+def error(obj: int | Token, message: str) -> None:
     """Report an error.
 
     Importantly this only *logs* the error; no sort of record
     is kept of there being an error; that's the responsibility
     of the calling code."""
-    print(f"[{line}] Error: {message}", file=sys.stderr)
+    if isinstance(obj, int):
+        report(obj, "", message)
+    else:
+        # TODO line numbers here?
+        if obj.token_type == TokenType.EOF:
+            report(0, " at end", message)
+        else:
+            report(0, f"at '{obj.lexeme}'", message)
+
+
+def report(line: int, where: str, message: str) -> None:
+    """Report an error.
+
+    Importantly this only *logs* the error; no sort of record
+    is kept of there being an error; that's the responsibility
+    of the calling code."""
+    print(f"[line {line}] Error{where}: {message}", file=sys.stderr)
 
 
 def is_alpha(c: str) -> bool:
