@@ -121,7 +121,7 @@ def is_alpha(c: str) -> bool:
     Defined here rather than using ``str.isalpha()`` due to the built-in
     function being too permissive for what we need.
     """
-    return (c >= "a" and c <= "z") or (c >= "A" and c <= "Z") or c == "_"
+    return ("a" <= c <= "z") or ("A" <= c <= "Z") or c == "_"
 
 
 def is_digit(c: str) -> bool:

@@ -84,7 +84,7 @@ class Parser:
         if self._match(TokenType.BANG, TokenType.MINUS):
             operator = self._previous()
             right = self._unary()
-            Unary(operator, right)
+            return Unary(operator, right)
         return self._primary()
 
     def _primary(self) -> Expr:

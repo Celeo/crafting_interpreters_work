@@ -18,8 +18,8 @@ def main() -> None:
 
 
 def run_file(path: str) -> None:
-    """Load a file from the disk and run it's content."""
-    with open(path) as f:
+    """Load a file from the disk and run its content."""
+    with open(path, encoding="utf-8") as f:
         content = f.read()
     if run(content):
         sys.exit(65)

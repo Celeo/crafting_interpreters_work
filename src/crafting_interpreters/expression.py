@@ -1,13 +1,13 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Any, Generic, TypeVar
+from typing import Any, TypeVar
 
 from .shared import Token
 
 R = TypeVar("R")
 
 
-class Visitor(Generic[R], ABC):
+class Visitor[R](ABC):
     """Visitor pattern implementation."""
 
     @abstractmethod
