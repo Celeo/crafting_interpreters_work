@@ -1,4 +1,3 @@
-from dataclasses import dataclass
 from typing import Any
 
 from .shared import (
@@ -12,7 +11,6 @@ from .shared import (
 )
 
 
-@dataclass(init=False)
 class Scanner:
     """Scanner utility."""
 

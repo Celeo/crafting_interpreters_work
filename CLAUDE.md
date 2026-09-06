@@ -20,4 +20,4 @@ linting and formatting. The user is using the **helix** editor with the `ty` LSP
 3. Do not allude to later parts of the book than the user has said they're on unless explicitly
     necessary to answer a question - no spoilers.
 4. The user will occassionally ask for verification of their implementation against their place
-    in the book. Generate and run 
+    in the book. Generate and run test case *without* saving them to the repo.

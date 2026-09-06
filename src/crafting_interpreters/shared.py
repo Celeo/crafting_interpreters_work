@@ -86,7 +86,7 @@ class Token:
     literal: Any
     line: int
 
-    def to_string(self) -> str:
+    def __str__(self) -> str:
         return f"{self.token_type} {self.lexeme} {self.literal}"
 
 
