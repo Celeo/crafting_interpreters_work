@@ -1,8 +1,7 @@
 import sys
 
-from crafting_interpreters.ast_printer import AstPrinter
-from crafting_interpreters.parser import Parser
-
+from .interpreter import Interpreter
+from .parser import Parser
 from .scanner import Scanner
 
 
@@ -46,9 +45,13 @@ def run(content: str) -> bool:
     if parser.had_error:
         return True
 
-    if expression:
-        print(AstPrinter().format_ast(expression))
-    return False
+    if not expression:
+        return False
+    # print(AstPrinter().format_ast(expression))
+
+    interpreter = Interpreter()
+    interpreter.interpret(expression)
+    return interpreter.had_runtime_error
 
 
 if __name__ == "__main__":
